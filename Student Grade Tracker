@@ -1,0 +1,76 @@
+package wipro_training;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class GradeTracker {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Integer> grades = new ArrayList<>();
+
+        System.out.println("Welcome to the Student Grade Tracker");
+
+        // Input grades
+        while (true) {
+            System.out.print("Enter a grade (or type 'done' to finish): ");
+            String input = scanner.nextLine().trim();
+
+            if (input.equalsIgnoreCase("done")) {
+                break;
+            }
+
+            try {
+                int grade = Integer.parseInt(input);
+                grades.add(grade);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number or 'done' to finish.");
+            }
+        }
+
+        if (grades.isEmpty()) {
+            System.out.println("No grades entered. Exiting.");
+            return;
+        }
+
+        // Calculate average
+        double average = calculateAverage(grades);
+        System.out.println("Average grade: " + average);
+
+        // Find highest and lowest grades
+        int highest = findHighest(grades);
+        int lowest = findLowest(grades);
+        System.out.println("Highest grade: " + highest);
+        System.out.println("Lowest grade: " + lowest);
+    }
+
+    private static double calculateAverage(ArrayList<Integer> grades) {
+        if (grades.isEmpty()) {
+            return 0;
+        }
+
+        int sum = 0;
+        for (int grade : grades) {
+            sum += grade;
+        }
+
+        return (double) sum / grades.size();
+    }
+
+    private static int findHighest(ArrayList<Integer> grades) {
+        if (grades.isEmpty()) {
+            return 0;
+        }
+
+        return Collections.max(grades);
+    }
+
+    private static int findLowest(ArrayList<Integer> grades) {
+        if (grades.isEmpty()) {
+            return 0;
+        }
+
+        return Collections.min(grades);
+    }
+}
+
